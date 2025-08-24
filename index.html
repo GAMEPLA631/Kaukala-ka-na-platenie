@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulačka výdavku</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000000; /* Čierne pozadie */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: white; /* Predvolená farba textu */
+        }
+        .container {
+            background-color: #111111; /* Tmavší kontajner pre lepšiu čitateľnosť */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+        h1, #vysledok {
+            /* Aplikujeme animáciu meniacu farbu na nadpis a výsledok */
+            animation: color-change 5s infinite;
+        }
+        
+        /* Definícia animácie */
+        @keyframes color-change {
+            0% { color: red; }
+            25% { color: yellow; }
+            50% { color: blue; }
+            75% { color: green; }
+            100% { color: red; }
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #555;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: #333;
+            color: white;
+        }
+        input::placeholder {
+            color: #ccc;
+        }
+        #vysledok {
+            margin-top: 20px;
+            padding: 15px;
+            border: 2px solid white;
+            border-radius: 5px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Výpočet výdavku</h1>
+        <p>Zadaj cenu a sumu, ktorú si dostal.</p>
+        
+        <input type="number" id="cena" placeholder="Celková cena (€)" step="0.01">
+        <input type="number" id="zaplatene" placeholder="Zaplatili mi (€)" step="0.01">
+        
+        <div id="vysledok">Výdavok: 0.00 €</div>
+    </div>
+
+    <script>
+        function vypocitajVydavok() {
+            const cenaInput = document.getElementById('cena');
+            const zaplateneInput = document.getElementById('zaplatene');
+            const cena = parseFloat(cenaInput.value) || 0;
+            const zaplatene = parseFloat(zaplateneInput.value) || 0;
+
+            let vydavok = zaplatene - cena;
+
+            if (vydavok < 0) {
+                vydavok = 0;
+            }
+            
+            document.getElementById('vysledok').textContent = `Výdavok: ${vydavok.toFixed(2)} €`;
+        }
+
+        document.getElementById('cena').addEventListener('input', vypocitajVydavok);
+        document.getElementById('zaplatene').addEventListener('input', vypocitajVydavok);
+    </script>
+</body>
+</html>
